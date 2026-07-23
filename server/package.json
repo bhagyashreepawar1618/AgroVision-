@@ -1,0 +1,12 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server for the project",
+  "license": "ISC",
+  "author": "Bhagyashree Pawar",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node  '/src/index.js'"
+  }
+}
