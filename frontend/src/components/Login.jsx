@@ -57,6 +57,9 @@ function Login() {
               <button
                 type="button"
                 className="text-sm text-emerald-300 hover:underline"
+                onClick={() => {
+                  navigate("/forgot_password");
+                }}
               >
                 Forgot Password?
               </button>
