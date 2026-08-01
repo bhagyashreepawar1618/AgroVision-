@@ -4,25 +4,23 @@ function Login() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-sky-50">
-      <div className="mx-auto flex min-h-screen max-w-7xl items-center justify-center px-6 py-10">
-        {/* Left Section */}
-        <div className="hidden w-1/2 lg:flex items-center justify-center">
-          <img
-            src="/images/login.png"
-            alt="CropSense AI"
-            className="w-full max-w-lg"
-          />
-        </div>
+    <div
+      className="relative min-h-screen bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: "url('/images/login.png')",
+      }}
+    >
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/45"></div>
 
-        {/* Right Section */}
-        <div className="w-full max-w-md rounded-3xl border border-white/40 bg-white/80 p-10 shadow-2xl backdrop-blur-lg">
+      {/* Login Container */}
+      <div className="relative z-10 flex min-h-screen items-center justify-end px-6 lg:px-20">
+        <div className="w-full max-w-md rounded-3xl border border-white/20 bg-white/15 p-10 shadow-2xl backdrop-blur-xl">
+          {/* Heading */}
           <div className="mb-8 text-center">
-            <h1 className="text-4xl font-bold text-slate-800">
-              Welcome Back 👋
-            </h1>
+            <h1 className="text-4xl font-bold text-white">Welcome Back 👋</h1>
 
-            <p className="mt-3 text-slate-500">
+            <p className="mt-3 text-gray-200">
               Login to continue your smart farming journey.
             </p>
           </div>
@@ -30,27 +28,27 @@ function Login() {
           <form className="space-y-6">
             {/* Username / Email */}
             <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-700">
+              <label className="mb-2 block text-sm font-semibold text-white">
                 Username or Email
               </label>
 
               <input
                 type="text"
                 placeholder="Enter username or email"
-                className="w-full rounded-xl border border-slate-300 bg-white px-5 py-3 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                className="w-full rounded-xl border border-white/30 bg-white/20 px-5 py-3 text-white placeholder:text-gray-300 outline-none backdrop-blur-md transition focus:border-emerald-400"
               />
             </div>
 
             {/* Password */}
             <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-700">
+              <label className="mb-2 block text-sm font-semibold text-white">
                 Password
               </label>
 
               <input
                 type="password"
                 placeholder="Enter password"
-                className="w-full rounded-xl border border-slate-300 bg-white px-5 py-3 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                className="w-full rounded-xl border border-white/30 bg-white/20 px-5 py-3 text-white placeholder:text-gray-300 outline-none backdrop-blur-md transition focus:border-emerald-400"
               />
             </div>
 
@@ -58,7 +56,7 @@ function Login() {
             <div className="flex justify-end">
               <button
                 type="button"
-                className="text-sm font-medium text-emerald-600 hover:underline"
+                className="text-sm text-emerald-300 hover:underline"
               >
                 Forgot Password?
               </button>
@@ -67,7 +65,7 @@ function Login() {
             {/* Login Button */}
             <button
               type="submit"
-              className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-sky-500 py-3 text-lg font-semibold text-white shadow-lg transition hover:scale-[1.02]"
+              className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-lg font-semibold text-white shadow-xl transition hover:scale-[1.03]"
             >
               Login
             </button>
@@ -75,17 +73,17 @@ function Login() {
 
           {/* Divider */}
           <div className="my-8 flex items-center">
-            <div className="h-px flex-1 bg-slate-300"></div>
-            <span className="mx-4 text-sm text-slate-500">OR</span>
-            <div className="h-px flex-1 bg-slate-300"></div>
+            <div className="h-px flex-1 bg-white/30"></div>
+            <span className="mx-4 text-sm text-white">OR</span>
+            <div className="h-px flex-1 bg-white/30"></div>
           </div>
 
           {/* Register */}
-          <p className="text-center text-slate-600">Don't have an account?</p>
+          <p className="text-center text-gray-200">Don't have an account?</p>
 
           <button
             onClick={() => navigate("/register")}
-            className="mt-4 w-full rounded-xl border-2 border-emerald-500 py-3 font-semibold text-emerald-600 transition hover:bg-emerald-500 hover:text-white"
+            className="mt-4 w-full rounded-xl border border-white/40 bg-white/10 py-3 font-semibold text-white backdrop-blur-md transition hover:bg-white/20"
           >
             Create New Account
           </button>
