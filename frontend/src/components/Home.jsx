@@ -66,7 +66,12 @@ function Home() {
             </p>
 
             <div className="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start">
-              <button className="rounded-full bg-emerald-500 px-8 py-3 font-semibold text-white transition hover:bg-emerald-600">
+              <button
+                className="rounded-full bg-emerald-500 px-8 py-3 font-semibold text-white transition hover:bg-emerald-600"
+                onClick={() => {
+                  navigate("/register");
+                }}
+              >
                 Get Started
               </button>
 
