@@ -6,6 +6,7 @@ import Layout from "./components/Layout/Layout.jsx";
 import Home from "./components/Home.jsx";
 import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
+import ForgotPassword from "./components/ForgotPassword.jsx";
 
 const route = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const route = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+      },
+      {
+        path: "forgot_password",
+        element: <ForgotPassword />,
       },
     ],
   },
