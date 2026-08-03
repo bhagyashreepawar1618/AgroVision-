@@ -1,46 +1,7 @@
+import { useNavigate } from "react-router-dom";
+import FeatureCard from "./Features/FeatureCard.jsx";
 function Dashboard() {
-  const features = [
-    {
-      title: "Disease Detection",
-      icon: "🦠",
-      desc: "Detect plant diseases using AI image analysis.",
-    },
-    {
-      title: "AI Chatbot",
-      icon: "🤖",
-      desc: "Ask farming related questions anytime.",
-    },
-    {
-      title: "Weather Forecast",
-      icon: "🌦️",
-      desc: "Real-time weather updates for your farm.",
-    },
-    {
-      title: "Yield Prediction",
-      icon: "📈",
-      desc: "Predict crop production using AI.",
-    },
-    {
-      title: "Fertilizer Recommendation",
-      icon: "🧪",
-      desc: "Get smart fertilizer suggestions.",
-    },
-    {
-      title: "Crop History",
-      icon: "🌾",
-      desc: "Track previous crop reports.",
-    },
-    {
-      title: "Irrigation Planner",
-      icon: "💧",
-      desc: "Plan watering based on weather.",
-    },
-    {
-      title: "Analytics",
-      icon: "📊",
-      desc: "Visualize farm performance.",
-    },
-  ];
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-sky-50">
@@ -81,31 +42,62 @@ function Dashboard() {
 
         {/* Feature Cards */}
 
-        <div className="mt-14">
-          <h2 className="mb-8 text-3xl font-bold text-slate-800">
-            AI Services
-          </h2>
+        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+          <FeatureCard
+            icon="🦠"
+            title="Disease Detection"
+            desc="Detect plant diseases using AI image analysis."
+            route="/disease-detection"
+          />
 
-          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="group cursor-pointer rounded-3xl border border-emerald-100 bg-white p-7 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
-              >
-                <div className="mb-5 text-5xl">{feature.icon}</div>
+          <FeatureCard
+            icon="🤖"
+            title="AI Chatbot"
+            desc="Ask farming related questions anytime."
+            route="/chatbot"
+          />
 
-                <h3 className="text-xl font-bold text-slate-800">
-                  {feature.title}
-                </h3>
+          <FeatureCard
+            icon="🌦️"
+            title="Weather Forecast"
+            desc="Real-time weather updates for your farm."
+            route="/weather_forecast"
+          />
 
-                <p className="mt-3 leading-7 text-slate-500">{feature.desc}</p>
+          <FeatureCard
+            icon="📈"
+            title="Yield Prediction"
+            desc="Predict crop production using AI."
+            route="/yield-prediction"
+          />
 
-                <button className="mt-6 rounded-xl bg-emerald-100 px-5 py-2 font-semibold text-emerald-700 transition group-hover:bg-emerald-500 group-hover:text-white">
-                  Open
-                </button>
-              </div>
-            ))}
-          </div>
+          <FeatureCard
+            icon="🧪"
+            title="Fertilizer Recommendation"
+            desc="Get smart fertilizer suggestions."
+            route="/fertilizer"
+          />
+
+          <FeatureCard
+            icon="🌾"
+            title="Crop History"
+            desc="Track previous crop reports."
+            route="/crop-history"
+          />
+
+          <FeatureCard
+            icon="💧"
+            title="Irrigation Planner"
+            desc="Plan watering based on weather."
+            route="/irrigation"
+          />
+
+          <FeatureCard
+            icon="📊"
+            title="Analytics"
+            desc="Visualize farm performance."
+            route="/analytics"
+          />
         </div>
 
         {/* Recent Activity */}
