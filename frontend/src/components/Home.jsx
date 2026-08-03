@@ -173,6 +173,135 @@ function Home() {
         </div>
       </section>
 
+      {/* Premium Features */}
+      {/* navigate to register or login if not login or navigate to payment page if logged in  */}
+      <section className="bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 py-24 text-white">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="text-center">
+            <span className="rounded-full bg-yellow-400 px-4 py-2 text-sm font-bold text-slate-900">
+              ⭐ PREMIUM PLAN
+            </span>
+
+            <h2 className="mt-6 text-4xl font-extrabold">
+              Unlock Advanced AI Farming
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-3xl text-lg text-slate-300">
+              Get access to our most powerful AI tools designed to maximize crop
+              production, reduce losses, and improve farming decisions.
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-8 lg:grid-cols-3">
+            {/* Yield Prediction */}
+            <div className="rounded-3xl border border-emerald-400/20 bg-white/10 p-8 backdrop-blur-lg transition hover:-translate-y-2 hover:border-emerald-400 hover:shadow-2xl">
+              <span className="rounded-full bg-yellow-500 px-3 py-1 text-sm font-semibold text-black">
+                Premium
+              </span>
+
+              <h3 className="mt-6 text-2xl font-bold">📈 Yield Prediction</h3>
+
+              <p className="mt-4 text-slate-300 leading-7">
+                Predict your crop production using weather, soil conditions,
+                historical data and AI-powered analytics.
+              </p>
+            </div>
+
+            {/* Disease Detection */}
+            <div className="rounded-3xl border border-emerald-400/20 bg-white/10 p-8 backdrop-blur-lg transition hover:-translate-y-2 hover:border-emerald-400 hover:shadow-2xl">
+              <span className="rounded-full bg-yellow-500 px-3 py-1 text-sm font-semibold text-black">
+                Premium
+              </span>
+
+              <h3 className="mt-6 text-2xl font-bold">
+                🦠 Advanced Disease Detection
+              </h3>
+
+              <p className="mt-4 text-slate-300 leading-7">
+                Detect diseases with AI confidence score and receive medicine,
+                fertilizer, and treatment recommendations instantly.
+              </p>
+            </div>
+
+            {/* Irrigation */}
+            <div className="rounded-3xl border border-emerald-400/20 bg-white/10 p-8 backdrop-blur-lg transition hover:-translate-y-2 hover:border-emerald-400 hover:shadow-2xl">
+              <span className="rounded-full bg-yellow-500 px-3 py-1 text-sm font-semibold text-black">
+                Premium
+              </span>
+
+              <h3 className="mt-6 text-2xl font-bold">
+                💧 Smart Irrigation Planner
+              </h3>
+
+              <p className="mt-4 text-slate-300 leading-7">
+                AI recommends the best irrigation schedule based on rainfall,
+                temperature, humidity and crop growth stage.
+              </p>
+            </div>
+          </div>
+
+          {/* Pricing */}
+
+          <div className="mt-20 grid gap-8 md:grid-cols-2">
+            {/* Monthly */}
+            <div className="rounded-3xl bg-white p-10 text-slate-900 shadow-2xl">
+              <p className="font-semibold text-emerald-600">Monthly Plan</p>
+
+              <h3 className="mt-3 text-5xl font-extrabold">
+                ₹199
+                <span className="text-xl font-medium text-slate-500">
+                  /month
+                </span>
+              </h3>
+
+              <ul className="mt-8 space-y-3 text-slate-600">
+                <li>✅ Unlimited AI Predictions</li>
+                <li>✅ Disease Detection</li>
+                <li>✅ Smart Irrigation Planner</li>
+                <li>✅ Yield Prediction</li>
+                <li>✅ Priority AI Support</li>
+              </ul>
+
+              <button className="mt-10 w-full rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 font-bold text-white transition hover:scale-105">
+                Upgrade Monthly
+              </button>
+            </div>
+
+            {/* Yearly */}
+            <div className="relative rounded-3xl border-4 border-yellow-400 bg-gradient-to-br from-emerald-500 to-green-700 p-10 shadow-2xl">
+              <span className="absolute right-5 top-5 rounded-full bg-yellow-400 px-3 py-1 text-sm font-bold text-black">
+                Best Value
+              </span>
+
+              <p className="font-semibold text-white">Annual Plan</p>
+
+              <h3 className="mt-3 text-5xl font-extrabold text-white">
+                ₹1,999
+                <span className="text-xl font-medium text-emerald-100">
+                  /year
+                </span>
+              </h3>
+
+              <p className="mt-2 text-yellow-200 font-semibold">
+                Save over 15% compared to monthly billing.
+              </p>
+
+              <ul className="mt-8 space-y-3 text-white">
+                <li>✅ Everything in Monthly</li>
+                <li>✅ Unlimited AI Reports</li>
+                <li>✅ Early Access to New Features</li>
+                <li>✅ Premium Weather Insights</li>
+                <li>✅ Dedicated Customer Support</li>
+              </ul>
+
+              <button className="mt-10 w-full rounded-xl bg-white py-3 font-bold text-emerald-600 transition hover:scale-105">
+                Upgrade Yearly
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How it Works */}
       <section className="bg-gradient-to-b from-sky-50 via-white to-emerald-50 py-24">
         <div className="mx-auto max-w-7xl px-6">
