@@ -47,7 +47,7 @@ function Dashboard() {
             icon="🦠"
             title="Disease Detection"
             desc="Detect plant diseases using AI image analysis."
-            route="/disease-detection"
+            route="/subscription"
           />
 
           <FeatureCard
@@ -68,7 +68,7 @@ function Dashboard() {
             icon="📈"
             title="Yield Prediction"
             desc="Predict crop production using AI."
-            route="/yield-prediction"
+            route="/subscription"
           />
 
           <FeatureCard
