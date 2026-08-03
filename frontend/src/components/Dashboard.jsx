@@ -89,7 +89,7 @@ function Dashboard() {
             icon="💧"
             title="Irrigation Planner"
             desc="Plan watering based on weather."
-            route="/irrigation"
+            route="/irrigation_planner"
           />
 
           <FeatureCard
