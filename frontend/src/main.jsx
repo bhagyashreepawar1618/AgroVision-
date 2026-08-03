@@ -11,6 +11,7 @@ import Dashboard from "./components/Dashboard.jsx";
 import WeatherForecast from "./components/Features/WeatherForecast.jsx";
 import Subscription from "./components/Subscription.jsx";
 import DiseasePrediction from "./components/Features/DiseasePrediction.jsx";
+import IrrigationPlanner from "./components/Features/IrrigationPlanner.jsx";
 
 const route = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const route = createBrowserRouter([
       {
         path: "disease_prediction",
         element: <DiseasePrediction />,
+      },
+      {
+        path: "irrigation_planner",
+        element: <IrrigationPlanner />,
       },
     ],
   },
