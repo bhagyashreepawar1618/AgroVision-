@@ -8,6 +8,7 @@ import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import ForgotPassword from "./components/ForgotPassword.jsx";
 import Dashboard from "./components/Dashboard.jsx";
+import WeatherForecast from "./components/Features/WeatherForecast.jsx";
 
 const route = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const route = createBrowserRouter([
       {
         path: "dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "weather_forecast",
+        element: <WeatherForecast />,
       },
     ],
   },
