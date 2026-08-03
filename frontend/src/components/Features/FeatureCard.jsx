@@ -1,4 +1,6 @@
-function FeatureCard({ icon, title, desc, onClick }) {
+import { useNavigate } from "react-router-dom";
+function FeatureCard({ icon, title, desc, route }) {
+  const navigate = useNavigate();
   return (
     <div className="group rounded-3xl border border-emerald-100 bg-white p-7 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
       <div className="mb-5 text-5xl">{icon}</div>
@@ -8,7 +10,9 @@ function FeatureCard({ icon, title, desc, onClick }) {
       <p className="mt-3 leading-7 text-slate-500">{desc}</p>
 
       <button
-        onClick={onClick}
+        onClick={() => {
+          navigate(route);
+        }}
         className="mt-6 rounded-xl bg-emerald-100 px-5 py-2 font-semibold text-emerald-700 transition hover:bg-emerald-500 hover:text-white"
       >
         Open
