@@ -21,9 +21,9 @@ Helping farmers make smarter decisions using Artificial Intelligence, Machine Le
 
 ---
 
-# 🌱 About CropSense AI
+# 🌱 About AgroVision AI
 
-CropSense AI is an AI-powered smart farming platform designed to help farmers improve productivity and make better farming decisions.
+AgroVision AI is an AI-powered smart farming platform designed to help farmers improve productivity and make better farming decisions.
 
 The platform combines Artificial Intelligence, Machine Learning and Real-Time Weather Analysis to provide intelligent crop recommendations.
 
