@@ -10,6 +10,7 @@ import ForgotPassword from "./components/ForgotPassword.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import WeatherForecast from "./components/Features/WeatherForecast.jsx";
 import Subscription from "./components/Subscription.jsx";
+import DiseasePrediction from "./components/Features/DiseasePrediction.jsx";
 
 const route = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const route = createBrowserRouter([
       {
         path: "subscription",
         element: <Subscription />,
+      },
+      {
+        path: "disease_prediction",
+        element: <DiseasePrediction />,
       },
     ],
   },
