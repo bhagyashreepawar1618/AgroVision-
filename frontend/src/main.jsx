@@ -7,6 +7,7 @@ import Home from "./components/Home.jsx";
 import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import ForgotPassword from "./components/ForgotPassword.jsx";
+import Dashboard from "./components/Dashboard.jsx";
 
 const route = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const route = createBrowserRouter([
       {
         path: "forgot_password",
         element: <ForgotPassword />,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
       },
     ],
   },

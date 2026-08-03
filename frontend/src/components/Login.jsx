@@ -69,6 +69,9 @@ function Login() {
             <button
               type="submit"
               className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-lg font-semibold text-white shadow-xl transition hover:scale-[1.03]"
+              onClick={() => {
+                navigate("/dashboard");
+              }}
             >
               Login
             </button>
