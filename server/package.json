@@ -11,12 +11,14 @@
     "start": "node src/index.js"
   },
   "dependencies": {
+    "@types/pg": "^8.20.4",
     "cloudinary": "^2.10.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "multer": "^2.2.0",
     "nodemon": "^3.1.14",
     "pg": "^8.22.0",
-    "prettier": "^3.9.6"
+    "prettier": "^3.9.6",
+    "prisma": "^7.9.1"
   }
 }
