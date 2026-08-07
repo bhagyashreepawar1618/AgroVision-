@@ -1,7 +1,61 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
 function Register() {
   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    fullname: "",
+    username: "",
+    email: "",
+    password: "",
+    profile: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+
+    if (name === "profile") {
+      setFormData((prev) => ({
+        ...prev,
+        profile: files[0],
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = new FormData();
+
+    data.append("fullname", formData.fullname);
+    data.append("username", formData.username);
+    data.append("email", formData.email);
+    data.append("password", formData.password);
+    data.append("profile", formData.profile);
+
+    console.log("Data is=", data.get("fullname"));
+
+    //api call to backend to store data
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/users/register",
+        data,
+      );
+
+      console.log("response from backend is =", res.data);
+      alert("User registered successfully");
+    } catch (e) {
+      console.log("Error occcured while registartion", e);
+      alert("Error occured");
+    }
+  };
 
   return (
     <div
@@ -24,7 +78,7 @@ function Register() {
           </p>
         </div>
 
-        <form className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {/* Full Name */}
           <div>
             <label className="mb-2 block font-medium text-white">
@@ -32,6 +86,9 @@ function Register() {
             </label>
 
             <input
+              name="fullname"
+              value={formData.fullname}
+              onChange={handleChange}
               type="text"
               placeholder="Enter your full name"
               className="w-full rounded-xl border border-white/30 bg-white/20 px-5 py-3 text-white placeholder:text-gray-200 outline-none backdrop-blur-md transition focus:border-emerald-400"
@@ -45,6 +102,9 @@ function Register() {
             </label>
 
             <input
+              value={formData.username}
+              name="username"
+              onChange={handleChange}
               type="text"
               placeholder="Choose a username"
               className="w-full rounded-xl border border-white/30 bg-white/20 px-5 py-3 text-white placeholder:text-gray-200 outline-none backdrop-blur-md transition focus:border-emerald-400"
@@ -58,6 +118,9 @@ function Register() {
             </label>
 
             <input
+              value={formData.email}
+              name="email"
+              onChange={handleChange}
               type="email"
               placeholder="Enter your email"
               className="w-full rounded-xl border border-white/30 bg-white/20 px-5 py-3 text-white placeholder:text-gray-200 outline-none backdrop-blur-md transition focus:border-emerald-400"
@@ -71,6 +134,9 @@ function Register() {
             </label>
 
             <input
+              value={formData.password}
+              name="password"
+              onChange={handleChange}
               type="password"
               placeholder="Create a password"
               className="w-full rounded-xl border border-white/30 bg-white/20 px-5 py-3 text-white placeholder:text-gray-200 outline-none backdrop-blur-md transition focus:border-emerald-400"
@@ -84,6 +150,8 @@ function Register() {
             </label>
 
             <input
+              name="profile"
+              onChange={handleChange}
               type="file"
               accept="image/*"
               className="w-full cursor-pointer rounded-xl border border-white/30 bg-white/20 text-white file:mr-4 file:rounded-lg file:border-0 file:bg-emerald-500 file:px-4 file:py-2 file:font-semibold file:text-white hover:file:bg-emerald-600"
