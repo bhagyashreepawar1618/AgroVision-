@@ -1,4 +1,5 @@
 import app from "./app.js";
+import ApiError from "./utils/ApiError.js";
 
 app.listen(5000, () => {
   console.log("server is listening to the port ", process.env.PORT);
