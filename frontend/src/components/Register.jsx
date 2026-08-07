@@ -4,6 +4,7 @@ import axios from "axios";
 
 function Register() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     fullname: "",
@@ -32,6 +33,8 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
+
     const data = new FormData();
 
     data.append("fullname", formData.fullname);
@@ -40,9 +43,6 @@ function Register() {
     data.append("password", formData.password);
     data.append("profile", formData.profile);
 
-    console.log("Data is=", data.get("fullname"));
-
-    //api call to backend to store data
     try {
       const res = await axios.post(
         "http://localhost:5000/api/v1/users/register",
@@ -52,8 +52,11 @@ function Register() {
       console.log("response from backend is =", res.data);
       alert("User registered successfully");
     } catch (e) {
-      console.log("Error occcured while registartion", e);
+      console.log("Error occured while registration", e);
       alert("Error occured");
+    } finally {
+      setLoading(false);
+      navigate("/dashboard");
     }
   };
 
@@ -161,9 +164,42 @@ function Register() {
           {/* Register Button */}
           <button
             type="submit"
-            className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-lg font-semibold text-white shadow-xl transition duration-300 hover:scale-[1.03] hover:shadow-emerald-500/40"
+            disabled={loading}
+            className={`flex w-full items-center justify-center rounded-xl py-3 text-lg font-semibold text-white shadow-xl transition duration-300
+    ${
+      loading
+        ? "cursor-not-allowed bg-gray-500"
+        : "bg-gradient-to-r from-emerald-500 to-green-600 hover:scale-[1.03]"
+    }`}
           >
-            Create Account
+            {loading ? (
+              <>
+                <svg
+                  className="mr-2 h-5 w-5 animate-spin"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  ></path>
+                </svg>
+                Creating Account...
+              </>
+            ) : (
+              "Create Account"
+            )}
           </button>
         </form>
 
