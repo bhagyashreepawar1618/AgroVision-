@@ -3,4 +3,21 @@ import "dotenv/config";
 
 const app = express();
 
+app.use(
+  express.json({
+    limit: "10mb",
+  })
+);
+
+//config for express to understand browser encoder
+app.use(
+  express.urlencoded({
+    extended: true,
+    limit: "10mb",
+  })
+);
+
+//to store images and files in public
+app.use(express.static("public"));
+
 export default app;
