@@ -82,7 +82,7 @@ function Dashboard() {
             icon="🌾"
             title="Crop History"
             desc="Track previous crop reports."
-            route="/crop-history"
+            route="/crop_history"
           />
 
           <FeatureCard
