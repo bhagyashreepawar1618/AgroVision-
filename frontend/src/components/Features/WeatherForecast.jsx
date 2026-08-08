@@ -1,4 +1,26 @@
+import { useEffect } from "react";
+import axios from "axios";
 function WeatherForecast() {
+  useEffect(() => {
+    const getweather = async (city) => {
+      const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+
+      console.log("Weather API key =", apiKey);
+
+      const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
+
+      try {
+        const res = await axios.get(url);
+
+        console.log("Response =", res.data);
+      } catch (e) {
+        console.log("Weather API Error =", e.response?.data);
+      }
+    };
+
+    getweather("Pune");
+  }, []);
+
   return (
     <div className="rounded-3xl bg-gradient-to-r from-emerald-600 via-green-500 to-sky-500 p-8 text-white shadow-2xl">
       <div className="flex flex-col items-center justify-between gap-8 lg:flex-row">
