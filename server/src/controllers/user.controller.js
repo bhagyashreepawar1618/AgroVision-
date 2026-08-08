@@ -4,6 +4,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import uploadOnCloudinary from "../middlewares/cloudinaryUpload.middleware.js";
 import hashPassword from "../middlewares/passHash.middleware.js";
+import sendRegisterEmail from "../middlewares/registerMail.middleware.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   //take input
@@ -75,6 +76,9 @@ const registerUser = asyncHandler(async (req, res) => {
     console.log("user registartion failed");
     throw new ApiError(500, "Registration failed");
   }
+
+  //if user is created send mail
+  await sendRegisterEmail(email, fullname);
 
   return res.status(201).json(new ApiResponse(201, user, "User is registered successfully..!!!"));
 });
