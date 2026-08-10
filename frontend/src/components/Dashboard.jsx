@@ -54,7 +54,7 @@ function Dashboard() {
             icon="🤖"
             title="AI Chatbot"
             desc="Ask farming related questions anytime."
-            route="/chatbot"
+            route="/ai_chatbot"
           />
 
           <FeatureCard
