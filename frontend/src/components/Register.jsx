@@ -51,12 +51,12 @@ function Register() {
 
       console.log("response from backend is =", res.data);
       alert("User registered successfully");
+      navigate("/dashboard");
     } catch (e) {
       console.log("Error occured while registration", e);
       alert("Error occured");
     } finally {
       setLoading(false);
-      navigate("/dashboard");
     }
   };
 
