@@ -13,6 +13,7 @@ import Subscription from "./components/Subscription.jsx";
 import DiseasePrediction from "./components/Features/DiseasePrediction.jsx";
 import IrrigationPlanner from "./components/Features/IrrigationPlanner.jsx";
 import CropHistory from "./components/Features/CropHistory.jsx";
+import AiChatbot from "./components/Features/AiChatbot.jsx";
 
 const route = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const route = createBrowserRouter([
       {
         path: "crop_history",
         element: <CropHistory />,
+      },
+      {
+        path: "ai_chatbot",
+        element: <AiChatbot />,
       },
     ],
   },
