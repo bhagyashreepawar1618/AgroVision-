@@ -1,7 +1,44 @@
+import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
+
+  const [formdata, setFormdata] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormdata((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log("Login Form Data =", formdata);
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/users/login",
+        formdata,
+      );
+
+      console.log("res is=", res.data.data.accessToken);
+      alert("User is Logged in successfully");
+      localStorage.setItem("accessToken", res.data.data.accessToken);
+      navigate("/dashboard");
+    } catch (e) {
+      console.log("Error occured while loggin in user");
+      alert(e.message);
+    }
+  };
 
   return (
     <div
@@ -25,7 +62,7 @@ function Login() {
             </p>
           </div>
 
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Username / Email */}
             <div>
               <label className="mb-2 block text-sm font-semibold text-white">
@@ -34,6 +71,9 @@ function Login() {
 
               <input
                 type="text"
+                name="username"
+                value={formdata.username}
+                onChange={handleChange}
                 placeholder="Enter username or email"
                 className="w-full rounded-xl border border-white/30 bg-white/20 px-5 py-3 text-white placeholder:text-gray-300 outline-none backdrop-blur-md transition focus:border-emerald-400"
               />
@@ -47,6 +87,9 @@ function Login() {
 
               <input
                 type="password"
+                name="password"
+                value={formdata.password}
+                onChange={handleChange}
                 placeholder="Enter password"
                 className="w-full rounded-xl border border-white/30 bg-white/20 px-5 py-3 text-white placeholder:text-gray-300 outline-none backdrop-blur-md transition focus:border-emerald-400"
               />
@@ -57,9 +100,7 @@ function Login() {
               <button
                 type="button"
                 className="text-sm text-emerald-300 hover:underline"
-                onClick={() => {
-                  navigate("/forgot_password");
-                }}
+                onClick={() => navigate("/forgot_password")}
               >
                 Forgot Password?
               </button>
@@ -69,9 +110,6 @@ function Login() {
             <button
               type="submit"
               className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 text-lg font-semibold text-white shadow-xl transition hover:scale-[1.03]"
-              onClick={() => {
-                navigate("/dashboard");
-              }}
             >
               Login
             </button>
@@ -80,7 +118,9 @@ function Login() {
           {/* Divider */}
           <div className="my-8 flex items-center">
             <div className="h-px flex-1 bg-white/30"></div>
+
             <span className="mx-4 text-sm text-white">OR</span>
+
             <div className="h-px flex-1 bg-white/30"></div>
           </div>
 
