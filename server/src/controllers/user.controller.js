@@ -3,10 +3,12 @@ import ApiError from "../utils/ApiError.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import uploadOnCloudinary from "../middlewares/cloudinaryUpload.middleware.js";
-import hashPassword from "../middlewares/passHash.middleware.js";
+import { hashpassword } from "../middlewares/bcrypt.middleware.js";
 import sendRegisterEmail from "../middlewares/registerMail.middleware.js";
+import { checkPassword } from "../middlewares/bcrypt.middleware.js";
+import { generateAccessToken } from "../middlewares/jwt.middleware.js";
 
-const registerUser = asyncHandler(async (req, res) => {
+export const registerUser = asyncHandler(async (req, res) => {
   //take input
   const { username, fullname, password, email } = req.body;
 
@@ -51,7 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(500, "Profile picture upload failed");
   }
   //hash password
-  const hashedPassword = await hashPassword(password);
+  const hashedPassword = await hashpassword(password);
 
   const user = await prisma.user.create({
     data: {
@@ -83,4 +85,55 @@ const registerUser = asyncHandler(async (req, res) => {
   return res.status(201).json(new ApiResponse(201, user, "User is registered successfully..!!!"));
 });
 
-export default registerUser;
+export const LoginUser = asyncHandler(async (req, res) => {
+  //take username and password from user
+  console.log("You are in login user controlller");
+
+  const { username, password, email } = req.body;
+
+  //validation
+  if (!(username || email) || !password) {
+    throw new ApiError(400, "Username/Email and password are required");
+  }
+
+  //check if user is already registered or not
+  const existingUser = await prisma.user.findFirst({
+    where: {
+      OR: [
+        { email: email },
+        {
+          username: username,
+        },
+      ],
+    },
+  });
+
+  //if user not found
+  if (!existingUser) {
+    throw new ApiError(400, "User is not registered yet");
+  }
+
+  //if user is found check if password is correct or not
+  const isPasswordcorrect = await checkPassword(username, email, password);
+
+  console.log("is pass correct=", isPasswordcorrect);
+
+  //if pass word is wrong throw an error
+  if (!isPasswordcorrect) {
+    throw new ApiError(400, "Password is in correct");
+  }
+
+  //if password is correct send the jwt tokens
+  const accessToken = await generateAccessToken(username, email);
+
+  //if access token is not received throw an err
+  if (!accessToken) {
+    throw new ApiError(500, "Error occured while generating access token");
+  }
+
+  console.log("access token is =", accessToken);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { existingUser, accessToken }, "User logged in successfully"));
+});
