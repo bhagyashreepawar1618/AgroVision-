@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import prisma from "../lib/prisma.js";
+import ApiError from "../utils/ApiError.js";
 
 export const generateAccessToken = async (username, email) => {
   //access the user of which token has to be created
@@ -28,5 +29,22 @@ export const generateAccessToken = async (username, email) => {
     }
   );
 };
+export const verifyJwt = async (req, _, next) => {
+  try {
+    const token = req.header("Authorization")?.replace("Bearer ", "");
 
-export const verifyJwt = async () => {};
+    if (!token) {
+      throw new ApiError(401, "Unauthorized request");
+    }
+
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+    console.log("decoded token =", decodedToken);
+
+    req.user = decodedToken;
+
+    next();
+  } catch (e) {
+    throw new ApiError(401, "Invalid access token");
+  }
+};
