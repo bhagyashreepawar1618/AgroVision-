@@ -155,3 +155,6 @@ __pycache__/
 
 # Model files (optional - see note below)
 # *.pth
+
+# Disease detection dataset
+ML_Models/disease_detection/dataset/
