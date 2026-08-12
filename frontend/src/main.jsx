@@ -14,6 +14,7 @@ import DiseasePrediction from "./components/Features/DiseasePrediction.jsx";
 import IrrigationPlanner from "./components/Features/IrrigationPlanner.jsx";
 import CropHistory from "./components/Features/CropHistory.jsx";
 import AiChatbot from "./components/Features/AiChatbot.jsx";
+import UserProfile from "./components/UserProfile.jsx";
 
 const route = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const route = createBrowserRouter([
       {
         path: "ai_chatbot",
         element: <AiChatbot />,
+      },
+      {
+        path: "user_profile",
+        element: <UserProfile />,
       },
     ],
   },
