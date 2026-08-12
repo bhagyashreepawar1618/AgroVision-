@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { askAI } from "../openAI_APIs/aiChatBot.js";
+import { aiChatBot } from "../controllers/ai.controllers.js";
 
 const airouter = Router();
 
-airouter.route("/aichatbot").post(askAI);
+airouter.route("/aichatbot").post(aiChatBot);
 
 export default airouter;
