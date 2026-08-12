@@ -11,6 +11,7 @@
     "start": "node src/index.js"
   },
   "dependencies": {
+    "@huggingface/inference": "^4.13.25",
     "@prisma/client": "^6.19.3",
     "@types/pg": "^8.20.4",
     "bcrypt": "^6.0.0",
