@@ -137,3 +137,16 @@ export const LoginUser = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, { existingUser, accessToken }, "User logged in successfully"));
 });
+
+//controller for secured route
+export const getUserProfile = asyncHandler(async (req, res) => {
+  console.log("You are in user fetching phase");
+  const user = await prisma.user.findFirst({
+    where: {
+      id: req.user.id,
+    },
+  });
+
+  console.log("user is=", user);
+  return res.status(200).json(new ApiResponse(200, user, "User profile fetched successfully..!!"));
+});
