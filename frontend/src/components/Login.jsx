@@ -33,7 +33,7 @@ function Login() {
       console.log("res is=", res.data.data.accessToken);
       alert("User is Logged in successfully");
       localStorage.setItem("accessToken", res.data.data.accessToken);
-      navigate("/dashboard");
+      navigate("/user_profile");
     } catch (e) {
       console.log("Error occured while loggin in user");
       alert(e.message);
