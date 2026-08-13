@@ -5,6 +5,6 @@ import { verifyJwt } from "../middlewares/jwt.middleware.js";
 const airouter = Router();
 
 //secured route
-airouter.route("/aichatbot").post(verifyJWT, aiChatBot);
+airouter.route("/aichatbot").post(verifyJwt, aiChatBot);
 
 export default airouter;
