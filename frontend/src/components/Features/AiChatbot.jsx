@@ -44,10 +44,16 @@ function AiChatbot() {
     setLoading(true);
 
     try {
+      const token = localStorage.getItem("accessToken");
       const res = await axios.post(
         "http://localhost:5000/api/v1/ai/aichatbot",
         {
           message: userMessage,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
       );
 
