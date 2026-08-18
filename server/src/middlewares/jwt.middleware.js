@@ -21,7 +21,7 @@ export const generateAccessToken = async (username, email) => {
     {
       id: user.id,
       email: user.email,
-      username: user.email,
+      username: user.username,
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
@@ -32,6 +32,7 @@ export const generateAccessToken = async (username, email) => {
 export const verifyJwt = async (req, _, next) => {
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
+    console.log("access token is=", token);
 
     if (!token) {
       throw new ApiError(401, "Unauthorized request");
