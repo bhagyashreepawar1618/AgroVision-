@@ -86,6 +86,9 @@ function UserProfile() {
         {/* =====================================================
             PAGE HEADER
         ====================================================== */}
+        {/* =====================================================
+    PAGE HEADER
+====================================================== */}
         <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wider text-emerald-600">
@@ -101,18 +104,38 @@ function UserProfile() {
             </p>
           </div>
 
-          {/* Dashboard Button */}
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="group flex w-fit items-center gap-2 rounded-xl border border-emerald-200 bg-white px-5 py-3 font-semibold text-emerald-700 shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500 hover:bg-emerald-600 hover:text-white hover:shadow-xl"
-          >
-            <span className="text-lg transition-transform duration-300 group-hover:-translate-x-1">
-              ←
-            </span>
-            Dashboard
-          </button>
-        </div>
+          {/* Navigation Buttons */}
+          <div className="flex flex-wrap gap-3">
+            {/* Dashboard */}
+            <button
+              onClick={() => navigate("/dashboard")}
+              className="group flex items-center gap-2 rounded-xl border border-emerald-200 bg-white px-5 py-3 font-semibold text-emerald-700 shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500 hover:bg-emerald-600 hover:text-white hover:shadow-xl"
+            >
+              <span className="text-lg transition-transform duration-300 group-hover:-translate-x-1">
+                ←
+              </span>
+              Dashboard
+            </button>
 
+            {/* All Users */}
+            <button
+              onClick={() => navigate("/users")}
+              className="group flex items-center gap-2 rounded-xl border border-sky-200 bg-white px-5 py-3 font-semibold text-sky-700 shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-sky-500 hover:bg-sky-600 hover:text-white hover:shadow-xl"
+            >
+              <span className="text-lg">👥</span>
+              All Users
+            </button>
+
+            {/* Update Password */}
+            <button
+              onClick={() => navigate("/update-password")}
+              className="group flex items-center gap-2 rounded-xl border border-purple-200 bg-white px-5 py-3 font-semibold text-purple-700 shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-purple-500 hover:bg-purple-600 hover:text-white hover:shadow-xl"
+            >
+              <span className="text-lg">🔐</span>
+              Update Password
+            </button>
+          </div>
+        </div>
         {/* =====================================================
             MAIN PROFILE CARD
         ====================================================== */}
