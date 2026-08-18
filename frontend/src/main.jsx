@@ -15,6 +15,8 @@ import IrrigationPlanner from "./components/Features/IrrigationPlanner.jsx";
 import CropHistory from "./components/Features/CropHistory.jsx";
 import AiChatbot from "./components/Features/AiChatbot.jsx";
 import UserProfile from "./components/UserProfile.jsx";
+import UpdatePassword from "./components/userFeatures/UpdatePassword.jsx";
+import UsersList from "./components/connection/UsersList.jsx";
 
 const route = createBrowserRouter([
   {
@@ -68,6 +70,14 @@ const route = createBrowserRouter([
       {
         path: "user_profile",
         element: <UserProfile />,
+      },
+      {
+        path: "update-password",
+        element: <UpdatePassword />,
+      },
+      {
+        path: "users",
+        element: <UsersList />,
       },
     ],
   },
