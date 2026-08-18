@@ -150,3 +150,46 @@ export const getUserProfile = asyncHandler(async (req, res) => {
   console.log("user is=", user);
   return res.status(200).json(new ApiResponse(200, user, "User profile fetched successfully..!!"));
 });
+
+//controller to update password
+export const updatePassword = asyncHandler(async (req, res) => {
+  //take new password
+  console.log("You are in update password", req.body);
+  const { oldPassword, newPassword } = req.body;
+
+  console.log(oldPassword, newPassword);
+
+  if (!oldPassword && !newPassword) {
+    throw new ApiError(400, "Password is required");
+  }
+
+  //check if old password is correct
+  console.log("username=", req.user);
+  const ispasscorrect = await checkPassword(req.user.username, req.user.email, oldPassword);
+
+  //if password is wrong
+  if (ispasscorrect == false) {
+    throw new ApiError(400, "Password is Incorrect");
+  }
+
+  //if password is correct update new password after hashing it
+  const hashedPass = await hashpassword(newPassword);
+  const updatedUser = await prisma.user.update({
+    where: {
+      id: req.user.id,
+    },
+    data: {
+      password: hashedPass,
+    },
+  });
+
+  console.log("new updated user is=", updatedUser);
+
+  return res.status(200).json(new ApiResponse(400, updatedUser, "Password updated successfully"));
+});
+
+export const getAllUsers = asyncHandler(async (req, res) => {
+  const allUsers = await prisma.user.findMany();
+
+  console.log("all users are=", allUsers);
+});
