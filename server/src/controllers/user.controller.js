@@ -131,11 +131,19 @@ export const LoginUser = asyncHandler(async (req, res) => {
     throw new ApiError(500, "Error occured while generating access token");
   }
 
-  console.log("access token is =", accessToken);
+  const updatedUser = await prisma.user.update({
+    where: {
+      username: username,
+    },
+    data: {
+      accessToken: accessToken,
+    },
+  });
+  console.log("access token is =", updatedUser);
 
   return res
     .status(200)
-    .json(new ApiResponse(200, { existingUser, accessToken }, "User logged in successfully"));
+    .json(new ApiResponse(200, { updatedUser, accessToken }, "User logged in successfully"));
 });
 
 //controller for secured route
