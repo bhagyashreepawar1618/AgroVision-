@@ -1,8 +1,11 @@
+import numpy as np
 from datasets import load_dataset
 from datasets import Image
 from transformers import AutoImageProcessor
 from transformers import AutoModelForImageClassification
 from transformers import AutoConfig
+from transformers import TrainingArguments, Trainer
+import torch
 
 train_dataset = load_dataset(
     "csv",
@@ -103,3 +106,44 @@ print("\nTransformed sample:")
 print(sample.keys())
 print("Label: ", sample["labels"])
 print("Pixel values shape:", sample["pixel_values"].shape)
+
+training_args = TrainingArguments(
+    output_dir="./model", #where checkpoints/model will be saved
+    num_train_epochs=5,
+    per_device_train_batch_size=16, #process 16 images together
+    per_device_eval_batch_size=16,
+    learning_rate=2e-5,
+    eval_strategy="epoch", #check validation performance after each epoch
+    save_strategy="epoch", #save a checkpoint after each epoch
+    load_best_model_at_end=True,
+    metric_for_best_model="accuracy",
+    remove_unused_columns=False,
+    report_to="none" #Don't send training logs to external tracking services
+)
+def collate_fn(batch): #this function tells I have individual images and labels. When you want a batch, put them together correctly.
+    pixel_values = torch.stack([item["pixel_values"]for item in batch])
+    labels = torch.tensor([item["labels"] for item in batch])
+    return {
+        "pixel_values": pixel_values,
+        "labels": labels
+    }   
+    
+#this function checks how well our model is doing
+def compute_metrics(eval_pred): #eval_pred contains the results from the validation process.
+    predictions, labels = eval_pred
+    predictions = np.argmax(predictions, axis = 1) #The model produces 12 scores for 12 diseases.  np.argmax() picks the position with the highest score
+    accuracy = (predictions == labels).mean()
+    return {"accuracy": accuracy}
+trainer = Trainer(
+    model = model,
+    args = training_args,
+    train_dataset = train_dataset,
+    eval_dataset = validation_dataset,
+    data_collator = collate_fn,
+    compute_metrics = compute_metrics 
+)
+
+print("\nRunning baseline evaluation...")
+results = trainer.evaluate()
+print("\nBaseline results:")
+print(results)
