@@ -31,7 +31,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   if (existingUser) {
     console.log("User already exists..!!");
-    throw new ApiError(400, "User already Exists");
+    throw new ApiError(403, "User already Exists");
   }
 
   //   upload file on cloudinary
@@ -139,7 +139,6 @@ export const LoginUser = asyncHandler(async (req, res) => {
       accessToken: accessToken,
     },
   });
-  console.log("access token is =", updatedUser);
 
   return res
     .status(200)
