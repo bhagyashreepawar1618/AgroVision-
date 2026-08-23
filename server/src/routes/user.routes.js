@@ -8,6 +8,8 @@ import {
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJwt } from "../middlewares/jwt.middleware.js";
+import asyncHandler from "../utils/asyncHandler.js";
+import ApiResponse from "../utils/ApiResponse.js";
 
 const router = Router();
 
@@ -16,4 +18,9 @@ router.route("/login").post(LoginUser);
 router.route("/profile").get(verifyJwt, getUserProfile);
 router.route("/update-password").post(verifyJwt, updatePassword);
 router.route("/get-all-users").get(verifyJwt, getAllUsers);
+router.route("*").get(
+  asyncHandler(async (req, res) => {
+    return res.status(404).json(new ApiResponse(404, "Route not Found"));
+  })
+);
 export default router;
