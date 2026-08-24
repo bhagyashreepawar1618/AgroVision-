@@ -2,3 +2,8 @@ transformers
 fastapi
 uvicorn
 datasets
+numpy
+pandas
+matplotlib
+scikit-learn
+xgboost
