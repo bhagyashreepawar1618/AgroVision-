@@ -18,9 +18,5 @@ router.route("/login").post(LoginUser);
 router.route("/profile").get(verifyJwt, getUserProfile);
 router.route("/update-password").post(verifyJwt, updatePassword);
 router.route("/get-all-users").get(verifyJwt, getAllUsers);
-router.route("*").get(
-  asyncHandler(async (req, res) => {
-    return res.status(404).json(new ApiResponse(404, "Route not Found"));
-  })
-);
+
 export default router;

@@ -33,4 +33,9 @@ import aiRouter from "./routes/ai.routes.js";
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/ai", aiRouter);
 
+//catch all error
+app.use((req, res) => {
+  return res.status(404).json(new ApiResponse(404, "Route not Found"));
+});
+
 export default app;
