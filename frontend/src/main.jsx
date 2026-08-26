@@ -17,7 +17,7 @@ import AiChatbot from "./components/Features/AiChatbot.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import UpdatePassword from "./components/userFeatures/UpdatePassword.jsx";
 import UsersList from "./components/connection/UsersList.jsx";
-
+import FertilizerRecommendation from "./components/Features/FertilizerRecommendation.jsx";
 const route = createBrowserRouter([
   {
     path: "/",
@@ -78,6 +78,10 @@ const route = createBrowserRouter([
       {
         path: "users",
         element: <UsersList />,
+      },
+      {
+        path: "fertiliser-recommendation",
+        element: <FertilizerRecommendation />,
       },
     ],
   },

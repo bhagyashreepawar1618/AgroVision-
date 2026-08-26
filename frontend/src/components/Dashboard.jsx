@@ -75,7 +75,7 @@ function Dashboard() {
             icon="🧪"
             title="Fertilizer Recommendation"
             desc="Get smart fertilizer suggestions."
-            route="/fertilizer"
+            route="/fertiliser-recommendation"
           />
 
           <FeatureCard
