@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Forecast from "./weatherComponents/Forecast.jsx";
+import { useContext } from "react";
+import WeatherContext from "../../contexts/weatherContext.js";
 
 function WeatherForecast() {
-  const [weather, setWeather] = useState(null);
+  const { weather, setWeather, location, setLocation } =
+    useContext(WeatherContext);
 
   const [city, setCity] = useState("Pune");
   const [searchCity, setSearchCity] = useState("Pune");
 
   const [loading, setLoading] = useState(true);
   const [aiLoading, setAiLoading] = useState(false);
-
   const [error, setError] = useState("");
   const [aiSuggestion, setAiSuggestion] = useState("");
 
@@ -36,11 +38,16 @@ function WeatherForecast() {
 
       console.log("Weather Response =", res.data);
 
+      // Store complete weather response
       setWeather(res.data);
+
+      // Store location separately in context
+      setLocation(res.data.location);
     } catch (e) {
       console.log("Weather Error =", e.response?.data || e);
 
       setWeather(null);
+      setLocation(null);
 
       setError(
         e.response?.data?.error?.message || "Unable to fetch weather data.",
@@ -62,6 +69,7 @@ function WeatherForecast() {
     if (!trimmedCity) return;
 
     setCity(trimmedCity);
+
     getWeather(trimmedCity);
   };
 
@@ -77,86 +85,82 @@ function WeatherForecast() {
   // AI WEATHER SUGGESTION
   // ==============================
 
-  useEffect(() => {
-    if (!weather) return;
+  // useEffect(() => {
+  //   if (!weather) return;
 
-    const getAiSuggestion = async () => {
-      try {
-        setAiLoading(true);
-        setAiSuggestion("");
+  //   const getAiSuggestion = async () => {
+  //     try {
+  //       setAiLoading(true);
+  //       setAiSuggestion("");
 
-        const token = localStorage.getItem("accessToken");
+  //       const token = localStorage.getItem("accessToken");
 
-        if (!token) {
-          console.log("Access token not found");
-          return;
-        }
+  //       if (!token) {
+  //         console.log("Access token not found");
+  //         return;
+  //       }
 
-        const { location, current } = weather;
+  //       // WeatherAPI response contains location, not loc
+  //       const { location, current } = weather;
 
-        // Weather data that will be sent to backend
-        const weatherData = {
-          location: {
-            name: location.name,
-            region: location.region,
-            country: location.country,
-            latitude: location.lat,
-            longitude: location.lon,
-          },
+  //       // Data sent to backend
+  //       const weatherData = {
+  //         location: {
+  //           name: location.name,
+  //           region: location.region,
+  //           country: location.country,
+  //           latitude: location.lat,
+  //           longitude: location.lon,
+  //         },
 
-          weather: {
-            temperature: current.temp_c,
-            feelsLike: current.feelslike_c,
-            condition: current.condition.text,
-            humidity: current.humidity,
-            windSpeed: current.wind_kph,
-            windDirection: current.wind_dir,
-            pressure: current.pressure_mb,
-            precipitation: current.precip_mm,
-            visibility: current.vis_km,
-            uvIndex: current.uv,
-            cloud: current.cloud,
-          },
-        };
+  //         weather: {
+  //           temperature: current.temp_c,
+  //           feelsLike: current.feelslike_c,
+  //           condition: current.condition.text,
+  //           humidity: current.humidity,
+  //           windSpeed: current.wind_kph,
+  //           windDirection: current.wind_dir,
+  //           pressure: current.pressure_mb,
+  //           precipitation: current.precip_mm,
+  //           visibility: current.vis_km,
+  //           uvIndex: current.uv,
+  //           cloud: current.cloud,
+  //         },
+  //       };
 
-        console.log("Weather data sent to AI =", weatherData);
+  //       console.log("Weather data sent to AI =", weatherData);
 
-        const res = await axios.post(
-          "http://localhost:5000/api/v1/ai/weather-suggestion",
-          weatherData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
+  //       const res = await axios.post(
+  //         "http://localhost:5000/api/v1/ai/weather-suggestion",
+  //         weatherData,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         },
+  //       );
 
-        console.log("AI Weather Response =", res.data.data.reasoning);
+  //       console.log("AI Weather Response =", res.data?.data?.reasoning);
 
-        /*
-          Depending on your ApiResponse structure,
-          change this if required.
-        */
+  //       setAiSuggestion(
+  //         res.data?.data?.reasoning ||
+  //           res.data?.message ||
+  //           "AI suggestion generated successfully.",
+  //       );
+  //     } catch (e) {
+  //       console.log(
+  //         "Error occurred while getting AI suggestion =",
+  //         e.response?.data || e,
+  //       );
 
-        setAiSuggestion(
-          res.data?.data.reasoning ||
-            res.data?.message ||
-            "AI suggestion generated successfully.",
-        );
-      } catch (e) {
-        console.log(
-          "Error occurred while getting AI suggestion =",
-          e.response?.data || e,
-        );
+  //       setAiSuggestion("Unable to generate AI farming suggestions right now.");
+  //     } finally {
+  //       setAiLoading(false);
+  //     }
+  //   };
 
-        setAiSuggestion("Unable to generate AI farming suggestions right now.");
-      } finally {
-        setAiLoading(false);
-      }
-    };
-
-    getAiSuggestion();
-  }, [weather]);
+  //   getAiSuggestion();
+  // }, [weather]);
 
   // ==============================
   // LOADING
@@ -203,14 +207,12 @@ function WeatherForecast() {
     );
   }
 
-  const { location, current } = weather;
+  const { location: weatherLocation, current } = weather;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-sky-50 px-4 py-10 md:px-6">
       <div className="mx-auto max-w-7xl">
-        {/* ================================= */}
         {/* HEADER */}
-        {/* ================================= */}
 
         <div className="mb-8">
           <p className="font-semibold uppercase tracking-wider text-emerald-600">
@@ -226,9 +228,7 @@ function WeatherForecast() {
           </p>
         </div>
 
-        {/* ================================= */}
         {/* SEARCH BAR */}
-        {/* ================================= */}
 
         <form
           onSubmit={handleSearch}
@@ -254,9 +254,7 @@ function WeatherForecast() {
           </button>
         </form>
 
-        {/* ================================= */}
         {/* MAIN WEATHER CARD */}
-        {/* ================================= */}
 
         <div className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-emerald-600 via-emerald-500 to-sky-500 p-8 text-white shadow-2xl md:p-10">
           <div className="flex flex-col justify-between gap-10 md:flex-row md:items-center">
@@ -267,15 +265,17 @@ function WeatherForecast() {
                 Current Location
               </p>
 
-              <h2 className="mt-2 text-4xl font-bold">{location.name}</h2>
+              <h2 className="mt-2 text-4xl font-bold">
+                {weatherLocation.name}
+              </h2>
 
               <p className="mt-2 text-emerald-100">
-                {location.region}, {location.country}
+                {weatherLocation.region}, {weatherLocation.country}
               </p>
 
               <div className="mt-6 space-y-1 text-sm text-emerald-100">
                 <p>
-                  📍 {location.lat}, {location.lon}
+                  📍 {weatherLocation.lat}, {weatherLocation.lon}
                 </p>
 
                 <p>🕐 Updated: {current.last_updated}</p>
@@ -304,9 +304,7 @@ function WeatherForecast() {
           </div>
         </div>
 
-        {/* ================================= */}
         {/* WEATHER DETAILS */}
-        {/* ================================= */}
 
         <div className="mt-10">
           <h2 className="mb-6 text-2xl font-bold text-slate-800">
@@ -384,9 +382,7 @@ function WeatherForecast() {
           </div>
         </div>
 
-        {/* ================================= */}
         {/* FARMING CONDITIONS */}
-        {/* ================================= */}
 
         <div className="mt-10 rounded-3xl border border-emerald-100 bg-white p-8 shadow-xl">
           <div className="mb-6">
@@ -426,15 +422,11 @@ function WeatherForecast() {
           </div>
         </div>
 
-        {/* ================================= */}
         {/* 7 DAY FORECAST */}
-        {/* ================================= */}
 
         <Forecast city={city} />
 
-        {/* ================================= */}
         {/* AI FARMING SUGGESTION */}
-        {/* ================================= */}
 
         <div className="mt-12 overflow-hidden rounded-[2rem] bg-gradient-to-br from-emerald-900 via-emerald-800 to-slate-900 p-8 text-white shadow-2xl md:p-10">
           <div className="flex flex-col gap-6 md:flex-row">
